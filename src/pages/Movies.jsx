@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import { searchMovieByQuery } from 'services/API';
 import SearchMovies from 'components/SearchMovies';
 import SearchForm from 'components/SearchForm';
 
 function Movies() {
+  const [searchParams, setSearchParams] = useSearchParams({ query: '' });
+  const query = searchParams.get('query');
+
+  const [searchQuery, setSearchQuery] = useState(query);
   const [searchResults, setSearchResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  console.log('123456', searchQuery);
+
+  useEffect(() => {
+    if (searchQuery) handleSearch(searchQuery);
+  }, []);
+
   function handleSearch(query) {
     searchMovieByQuery(query)
       .then(response => {
@@ -16,7 +25,6 @@ function Movies() {
         console.error(error);
       });
   }
-  console.log('123', searchResults);
 
   return (
     <div>
@@ -24,6 +32,7 @@ function Movies() {
         onSearch={handleSearch}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        setSearchParams={setSearchParams}
       />
       <ul>
         <SearchMovies searchMovies={searchResults} />

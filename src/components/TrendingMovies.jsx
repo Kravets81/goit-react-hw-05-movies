@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 
 export default function TrendingMovies({ trendingMovies }) {
   const location = useLocation();
-  console.log('локация списка', location);
 
   return trendingMovies.map(trendingMovie => (
     <li key={trendingMovie.id}>

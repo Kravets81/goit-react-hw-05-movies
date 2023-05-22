@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export default function SearchForm({ onSearch, searchQuery, setSearchQuery }) {
+export default function SearchForm({
+  onSearch,
+  searchQuery,
+  setSearchQuery,
+  setSearchParams,
+}) {
   function handleSearchMovie(e) {
     e.preventDefault();
     if (searchQuery.trim() === '') {
       alert('Enter the film title');
     }
     onSearch(searchQuery);
-
-    // setSearchQuery('');
+    setSearchParams({ query: searchQuery.trim() });
   }
 
   return (

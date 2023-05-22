@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'services/API';
+import PropTypes from 'prop-types';
+import { Suspense } from 'react';
 
 export default function MovieCard() {
   const [loading, setLoading] = useState(true);
@@ -68,9 +70,27 @@ export default function MovieCard() {
               <NavLink to="reviews">Reviews</NavLink>
             </li>
           </ul>
-          <Outlet />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Outlet />
+          </Suspense>
         </div>
       )}
     </div>
   );
 }
+
+MovieCard.propTypes = {
+  movieId: PropTypes.string,
+  movieData: PropTypes.shape({
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      })
+    ),
+    release_date: PropTypes.string,
+    overview: PropTypes.string,
+    popularity: PropTypes.number,
+    poster_path: PropTypes.string,
+    original_title: PropTypes.string,
+  }),
+};
