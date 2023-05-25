@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
 import { searchMovieByQuery } from 'services/API';
-import SearchMovies from 'components/SearchMovies';
-import SearchForm from 'components/SearchForm';
+import SearchMovies from 'components/SearchMovies/SearchMovies';
+import SearchForm from 'components/SearchForm/SearchForm';
+import { Wrapper, List } from './Movies.styled';
 
 function Movies() {
   const [searchParams, setSearchParams] = useSearchParams({ query: '' });
@@ -28,17 +28,17 @@ function Movies() {
   }
 
   return (
-    <div>
+    <Wrapper>
       <SearchForm
         onSearch={handleSearch}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         setSearchParams={setSearchParams}
       />
-      <ul>
+      <List>
         <SearchMovies searchMovies={searchResults} />
-      </ul>
-    </div>
+      </List>
+    </Wrapper>
   );
 }
 

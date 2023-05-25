@@ -1,8 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { getMovieDetails } from 'services/API';
 import PropTypes from 'prop-types';
 import { Suspense } from 'react';
+import {
+  Button,
+  Wrapper,
+  Image,
+  Item,
+  List,
+  ButtonLink,
+} from './MovieCard.styled';
 
 export default function MovieCard() {
   const [loading, setLoading] = useState(true);
@@ -46,30 +54,31 @@ export default function MovieCard() {
       {error && <p>{error}</p>}
       {movieData && (
         <div>
-          <NavLink to={backLincLocationRef.current}>Go back</NavLink>
-          <img
-            src={`${posterURL}`}
-            alt={original_title}
-            width={250}
-            height={'auto'}
-          />
-          <h3>
-            {original_title} ({releaseYear})
-          </h3>
-          <p>User score: {popularity}</p>
-          <h4>Overview</h4>
-          <p>{overview}</p>
-          <h4>Genres</h4>
-          <p>{genresMovie}</p>
+          <Button to={backLincLocationRef.current}>Go back</Button>
+          <Wrapper>
+            <div>
+              <Image src={`${posterURL}`} alt={original_title} />
+            </div>
+            <div>
+              <h3>
+                {original_title} ({releaseYear})
+              </h3>
+              <p>User score: {popularity}</p>
+              <h4>Overview</h4>
+              <p>{overview}</p>
+              <h4>Genres</h4>
+              <p>{genresMovie}</p>
+            </div>
+          </Wrapper>
           <h4>Additional informanion</h4>
-          <ul>
-            <li>
-              <NavLink to="cast">Cast</NavLink>
-            </li>
-            <li>
-              <NavLink to="reviews">Reviews</NavLink>
-            </li>
-          </ul>
+          <List>
+            <Item>
+              <ButtonLink to="cast">Cast</ButtonLink>
+            </Item>
+            <Item>
+              <ButtonLink to="reviews">Reviews</ButtonLink>
+            </Item>
+          </List>
           <Suspense fallback={<div>Loading...</div>}>
             <Outlet />
           </Suspense>

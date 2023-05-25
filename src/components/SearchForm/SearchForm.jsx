@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form, Input, Button } from './SearchForm.styled';
 
 export default function SearchForm({
   onSearch,
@@ -16,8 +17,8 @@ export default function SearchForm({
   }
 
   return (
-    <form onSubmit={handleSearchMovie}>
-      <input
+    <Form onSubmit={handleSearchMovie}>
+      <Input
         type="text"
         name="searchQuery"
         value={searchQuery}
@@ -28,7 +29,7 @@ export default function SearchForm({
           setSearchQuery(e.target.value.toLowerCase());
         }}
       />
-      <button>Search</button>
-    </form>
+      <Button>Search</Button>
+    </Form>
   );
 }
